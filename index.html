@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Adwords Calculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+   
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!--<script src="labratrevenge.js"></script>-->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header style="padding: 1.5em 1.5em; text-align: left; line-height: 0;">
+      <img style="max-width: 151px;" src="img/lp-logo.png" alt="LivePerson" />
+  </header>
+
+  <div id="hero">
+    <div id="heading">
+
+      <h1>Google AdWords <br>Opportunity Report</h1>
+      <p>LivePerson data, in conjunction with third-party indicates the impact of setting up Google AdWords click-to-message routed into Liveengage. Use the calculator below to get an estimation of the increase in mobile conversions for your business as well as the value of these mobile conversions The variable factors in LivePerson’s model can be changed using the fields below, so feel free to enter your organization’s information.</p>
+    </div> 
+
+    <div class="whiteBar" style="width: 36px; height: 7px; background-color: white; margin: 40px auto 35px auto;"></div>
+    <h3 style="">Core Assumptions</h3>
+
+    <form id="form1">
+      <div style="position: relative;">
+        <div class="field" id="mobileVisits">
+          <label class="field__label" for="Monthly Mobile Visits">Monthly mobile visits</label>
+          <input class="field__input one-column-form__input--text" id="monthlyMobileVisits" name="field1" placeholder="Monthly mobile visits" />
+          <p class="hoverTip">Enter the current number of agents employed across your brand’s contact centers</p>
+        </div>
+
+        <div class="field" id="paidSearch">
+          <label class="field__label">AdWords % of paid search</label>
+          <input class="field__input one-column-form__input--text" id="adwordsPaidSearch" name="field2" placeholder="AdWords % of paid search" />
+          <p class="hoverTip">Enter the number(%) of paid search to your total mobile traffic</p>
+        </div>
+        <div class="field" id="interactionsPerCustomer">
+          <label class="field__label">Mobile visits from AdWords</label>
+          <input class="field__input one-column-form__input--text" id="interactions" style="pointer-events:none;" name="field3" placeholder="Mobile visits from AdWords" />
+          <p class="hoverTip">The average number of interactions with customer service by each customer annually</p>
+        </div>
+        <div class="field" id="industry2">
+            <label class="field__label">Industry</label>
+            <select class="field__input one-column-form__input--text" id="industry" name="industry">
+              <option style="opacity: 0.7;" value="" disabled selected>Industry</option>
+              <option value="advocacy">Advocacy</option>
+              <option value="auto">Auto</option>
+              <option value="b2b">B2B</option>
+              <option value="consumerServices">Consumer Services</option>
+              <option value="dating&personals">Dating & Personals</option>
+              <option value="eCommerce">E-Commerce</option>
+              <option value="education">Education</option>
+              <option value="finance&insurance">Finance & Insurance</option>
+              <option value="health&medical">Health & Medical</option>
+              <option value="homeGoods">Home Goods</option>
+              <option value="industrialServices">Industrial Services</option>
+              <option value="legal">Legal</option>
+              <option value="realEstate">Real Estate</option>
+              <option value="technology">Technology</option>
+              <option value="travel&hospitality">Travel & Hospitality</option>
+            </select>
+        </div>
+      </div>
+
+    </form>
+    <button style="display: block; margin: 20px auto;" id="button" onclick="outputname()">Calculate</button>
+
+    <p class="finePrint">None of the information entered on this page is collected in any way. It is used solely for the purpose of the calculations herein, and is not stored by any party.</p>
+  </div>
+
+  <div id="d3Graph" style="max-width:1100px; margin:0 auto;">
+    
+    <div id="graph1" style="width: 50%; float: left;">
+      <h2>Mobile search conversion from Google AdWords (vol)*</h2>
+      <p id="summary"></p>
+      <ul>
+        <li style="margin-right: 50px; list-style-image: url('img/blueDot.svg');"><span style="color:#535353; font-family: 'open sans', arial, sans-serif;">Current Volume</span></li>
+        <li style="list-style-image: url('img/orangeDot.svg');"><span style="color:#535353; font-family: 'open sans', arial, sans-serif;">Potential Volume Growth</span></li>
+      </ul>
+    </div>
+
+    
+    <div id="graph2" style="width: 50%; float: left;">
+      <h2>Mobile search conversion from AdWords ($)*</h2>
+      <p id="summary"></p>
+      <ul>
+        <li style="margin-right: 50px; list-style-image: url('img/blueDot.svg');"><span style="color:#535353; font-family: 'open sans', arial, sans-serif;">Current $ Volume</span></li>
+        <li style="list-style-image: url('img/orangeDot.svg');"><span style="color:#535353; font-family: 'open sans', arial, sans-serif;">Potential Volume $ Growth</span></li>
+      </ul>
+    </div>
+
+    <div class="graph" style="position:relative; margin:0 auto; max-width:1000px;">
+      <div id="chart" class="chart-container"></div>
+      <img id="goUp" style="position:absolute; bottom:-70px; right:0; cursor: pointer;" src="img/backToTop.svg" />
+    </div>
+
+    <p class="someMessage" style="max-width: 670px; margin: 0 auto; color: #535353; line-height: 24px;">*The variance in conservative, likely, and conservative projections is based on the prominence at which your company makes messaging available on its various customer touchpoints, as well as the completeness of processes — such as dispute resolution and change of address — it handles over messaging.</p>
+    
+    <div style="border-top:1px solid #d8d8d8; margin:60px 0;"></div>
+
+    <p class="" style="margin:0 auto; color:#535353; line-height:24px; text-align: left;">Based on industry benchmarks, LivePerson estimates CustomInk is converting 85,352 of these visits and spending $6,435,537 to drive these conversions. The analysis above has uncovered a substantial opportunity for you to boost mobile conversions by 4,268 – 12,803 units annually, without increasing its advertising budget. These additional conversions would typically cost you an extra $321,777 – $965,330 in advertising dollars. The benefits described above can potentially be captured through the implementation of Google’s new click-to-message AdWords extension. This extension lets consumers SMS with your brand directly from mobile ads in a single click, immediately connecting you to the consumer on their mobile device. LiveEngage ensures these interactions are routed to the right people at the right time across geographies, integrating them into broader marketing programs and operations. To complement this experience and capture a larger share of potential benefits, you can bring the same ease of access to advertising campaign landing pages by adding SMS via LiveEngage. The combination of SMS and the click-to-message extension enables you to construct ads with a value proposition that builds on the SMS capability (e.g., “Text with an expert now”).</p>
+  </div>
+
+  <footer id="footer" style="height: 111px; line-height: 111px; background-color: #162036; color: #fff; margin-top: 100px;">
+    <img style="vertical-align: middle;" src="http://www.liveperson.com/sites/all/themes/engage/images/footer_logo_white.png" alt="LP-footerLogo">
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
