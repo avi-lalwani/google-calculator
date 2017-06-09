@@ -159,9 +159,7 @@ $('#adwordsPaidSearch').change(function() {
 function outputname() {
 
   // Resets the graph
-  d3.select("svg").remove();
-
-  //insert html here
+  d3.selectAll("svg").remove();
   
   var mobileSearchConversion = mobileVisits * percent;
   var costBasedOffIndustry = mobileSearchConversion * averageCPA;
@@ -174,15 +172,9 @@ function outputname() {
   var increaseDollarModerate = costBasedOffIndustry * .10;
   var increaseDollarAggressive = costBasedOffIndustry * .15;
 
-  // Adds up the values of blue part + orange part
-  /*var sum = [
-    conservativeBar[0] + conservativeBar[1],
-    aggressiveBar[0] + aggressiveBar[1]
-  ];*/
-  //document.getElementById('summary').innerHTML =  "$" + abbreviateNumber(sum[1]) + " is the most likely benefit when adhering to our digital strategy."
-
   // D3 Graph
   setTimeout(function() {
+  
     function d3graph() {
 
     var data = [
@@ -328,6 +320,7 @@ function outputname() {
   },600);
   
   setTimeout(function() {
+
     function d3graph() {
 
     var data = [
